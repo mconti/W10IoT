@@ -8,5 +8,5 @@ Progetto Windows 10 per RaspPi2 che utilizza I2C per pilotare un display 8x8 a d
 Progetto Windows 10 per RaspPi2 che utilizza PubNub e freeboard come test
 
 ## RBMMF
-Progetto portato alla Rimini Beach Mini Maker Faire che utilizza un GrovePi+ collegata a tre sensori (Temperatura, Luminosità e Rumore) per visualizzare il comfort di un ambiente.
+Progetto portato alla Rimini Beach Mini Maker Faire che utilizza una GrovePi+ collegata a tre sensori (Temperatura, Luminosità e Rumore) per visualizzare il comfort di un ambiente.
 Spedisce i dati su PubNub
