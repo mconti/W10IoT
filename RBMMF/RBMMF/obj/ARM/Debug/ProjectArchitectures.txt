@@ -1,2 +1,0 @@
-C:\Users\posta\OneDrive\Documenti\GitHub\CorsoWPF\Raspberry2\Windows10\RBMMF\RBMMF\GrovePi\GrovePi.csproj;arm
-C:\Users\posta\OneDrive\Documenti\GitHub\CorsoWPF\Raspberry2\Windows10\RBMMF\RBMMF\RBMMF.csproj;arm

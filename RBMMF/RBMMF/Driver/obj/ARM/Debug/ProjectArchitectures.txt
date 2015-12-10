@@ -1,2 +1,0 @@
-C:\Users\posta\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\Driver\Driver.csproj;arm
-C:\Users\posta\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\GrovePi.csproj;arm
