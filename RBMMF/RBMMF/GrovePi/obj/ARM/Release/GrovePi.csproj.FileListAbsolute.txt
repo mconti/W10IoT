@@ -1,0 +1,17 @@
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\bin\ARM\Release\GrovePi.dll
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\bin\ARM\Release\GrovePi.pdb
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\bin\ARM\Release\GrovePi.pri
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\GrovePi.dll
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\GrovePi.pdb
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\ResourceHandlingTask.state
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\priconfig.xml
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\priconfig.xml.intermediate
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\layout.resfiles
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\layout.resfiles.intermediate
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\resources.resfiles
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\resources.resfiles.intermediate
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\pri.resfiles
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\pri.resfiles.intermediate
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\qualifiers.txt
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\qualifiers.txt.intermediate
+C:\Users\maurizio.conti\OneDrive\Documenti\Progetti\CorsoIOT\Win10\RBMMF\RBMMF\GrovePi\obj\ARM\Release\MultipleQualifiersPerDimensionFound.txt
