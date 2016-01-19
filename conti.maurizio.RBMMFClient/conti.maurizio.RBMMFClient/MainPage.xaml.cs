@@ -33,11 +33,15 @@ namespace conti.maurizio.RBMMFClient
         public MainPage()
         {
             this.InitializeComponent();
-            pubnub = new Pubnub("pub-c-65914541-3bbd-4fa9-979d-ffe4b018be8f", "sub-c-12fa7c6c-8534-11e5-83e3-02ee2ddab7fe");
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            pubnub = new Pubnub(
+                "pub-c-65914541-3bbd-4fa9-979d-ffe4b018be8f",
+                "sub-c-12fa7c6c-8534-11e5-83e3-02ee2ddab7fe"
+            );
+
             Campioni = new ObservableCollection<Campione>();
             lvData.ItemsSource = Campioni;
             pubnub.Subscribe<string>("Canale1", userCallBack, connectCallback, errorCallback);
@@ -69,17 +73,16 @@ namespace conti.maurizio.RBMMFClient
             //);
         }
 
-        private async void userCallBack(string obj)
+        private async void userCallBack(string DatiInArrivo)
         {
             try
             {
-
                 await Dispatcher.RunAsync(
                     CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        List<object> deserializedMessage = pubnub.JsonPluggableLibrary.DeserializeToListOfObject(obj);
-                        EON eon = JsonConvert.DeserializeObject<EON>(deserializedMessage[0].ToString());
+                        List<object> datiDecodificati = pubnub.JsonPluggableLibrary.DeserializeToListOfObject(DatiInArrivo);
+                        EON eon = JsonConvert.DeserializeObject<EON>(datiDecodificati[0].ToString());
                         Campioni.Add(eon.eon);
                     }
                 );

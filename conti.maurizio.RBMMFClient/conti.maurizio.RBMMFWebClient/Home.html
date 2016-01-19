@@ -7,15 +7,18 @@
 </head>
 <body>
     <div id="chart"></div>
+
     <script>
       var pubnub = PUBNUB.init({
           publish_key: 'pub-c-65914541-3bbd-4fa9-979d-ffe4b018be8f',
           subscribe_key: 'sub-c-12fa7c6c-8534-11e5-83e3-02ee2ddab7fe'
       });
-      var channel = 'Canale1';
+
+      var mioCanale = 'Canale1';
+
       eon.chart({
         pubnub: pubnub,
-        channel: channel,
+        channel: mioCanale,
         generate: {
           bindto: '#chart',
           data: {
@@ -25,20 +28,22 @@
       });
 
       eon.chart({
-          channel: "Canale1",   // the pubnub channel for real time data
+          channel: mioCanale,   // the pubnub channel for real time data
           generate: {           // c3 chart object
               bindto: '#chart'
           }
       });
 
     </script>
+
     <script>
       setInterval(function(){
         pubnub.publish({
-          channel: channel,
-          message: { eon: { 'Temperatura': Math.floor(Math.random() * 99) } }
+          channel: mioCanale,
+          message: { eon: { 'Temperatura': Math.floor(Math.random() * 99), 'Luminosita': Math.floor(Math.random() * 99) } }
         });
       }, 2000);
     </script>
+
 </body>
 </html>
