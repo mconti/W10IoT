@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://cdn.pubnub.com/pubnub-3.14.1.min.js"></script>
+
+    <script type="text/javascript">
+    $().ready(function () {
+        $('#button-1').click(function (ev) {
+            ev.preventDefault();
+
+            $.ajax({
+                method: 'POST',
+                url: 'https://api.particle.io/v1/devices/240020001747343338333633/rebel?access_token=861bd910d87220da416009051b37ece22f0e019f&args=stuff',
+                data: { args: 'stuff'}
+            });
+        })
+
+        // Progetto Hackster che usa Postman
+        // https://www.hackster.io/pulcher/you-are-the-ultimate-bounty-hunter-bcac23?utm_source=hackster&utm_medium=email&utm_campaign=new_projects
+
+        $('#button-2').click(function (ev) {
+            console.log(ev);
+            ev.preventDefault();
+
+            pubnub = PUBNUB({ publish_key: 'pub-c-65914541-3bbd-4fa9-979d-ffe4b018be8f',
+                              subscribe_key: 'sub-c-12fa7c6c-8534-11e5-83e3-02ee2ddab7fe' })
+
+            console.log("Click intercettato...");
+            pubnub.subscribe({
+                channel: "P1",
+                message: function (message, envelope, channelOrGroup, time, channel) {
+                    console.log(
+                          "Message Received." + "\n" +
+                          "Channel or Group: " + JSON.stringify(channelOrGroup) + "\n" +
+                          "Channel: " + JSON.stringify(channel) + "\n" +
+                          "Message: " + JSON.stringify(message) + "\n" +
+                          "Time: " + time + "\n" +
+                          "Raw Envelope: " + JSON.stringify(envelope)
+                    )
+                },
+                connect: pub
+            })
+            var sensori = {
+                "Analog11": "10",
+                "Analog2": "20",
+                "Digital1": "OFF",
+                "Digital2": "ON"
+            };
+
+            function pub() {
+                console.log("Since we're publishing on subscribe connectEvent, we're sure we'll receive the following publish.");
+                pubnub.publish({
+                    channel: "P1",
+                    message: JSON.stringify(sensori),
+                    callback: function (m) { console.log(m) }
+                })
+            }
+        })
+
+    });
+    </script>
+
+</head>
+<body>
+    <div class="col-md-3">
+        <h2 class="text-center">Postman</h2>
+        <p class="text-center"><a id="button-1" class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Go &raquo;</a></p>
+    </div>
+
+    <div class="col-md-3">
+        <h2 class="text-center">Pubnub</h2>
+        <p class="text-center"><a id="button-2" class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Go &raquo;</a></p>
+    </div>
+
+</body>
+</html>
