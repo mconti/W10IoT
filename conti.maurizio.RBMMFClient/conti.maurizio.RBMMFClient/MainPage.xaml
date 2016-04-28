@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -37,17 +37,41 @@
         </StackPanel>
         
         <ListView Grid.Row="1" Grid.Column="0" Name="lvData" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="30">
-            <ListView.ItemTemplate>
+            <ListView.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="50" Text="{Binding Temperatura}" Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Width="50" Text="{Binding Luminosita}" Style="{StaticResource BaseTextBlockStyle}" />
-                        <TextBlock Width="50" Text="{Binding Rumore}" Style="{StaticResource BaseTextBlockStyle}"/>
+                        <TextBlock Width="50" Text="Temp" TextAlignment="Center" Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock Width="50" Text="Lux" TextAlignment="Center" Style="{StaticResource BaseTextBlockStyle}" />
+                        <TextBlock Width="50" Text="dB" TextAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
                     </StackPanel>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Temperatura}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Luminosita}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Rumore}" />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <WebView Grid.Row="1" Grid.Column="1" Source="https://freeboard.io/board/rGme96"></WebView>
+
+            <WebView Grid.Row="0" Source="https://freeboard.io/board/rGme96"></WebView>
+            <WebView Grid.Row="1" Source="http://maurizioconti.com/Ambiente1.html"></WebView>
+        </Grid>
+        
     </Grid>
 </Page>

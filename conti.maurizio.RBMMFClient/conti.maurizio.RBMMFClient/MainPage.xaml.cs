@@ -28,7 +28,9 @@ namespace conti.maurizio.RBMMFClient
     public sealed partial class MainPage : Page
     {
         Pubnub pubnub;
-        ObservableCollection<Campione> Campioni;
+        ObservableCollection<Ambiente> Campioni;
+        string CanaleAmbiente { get; set; } = "Ambiente1";
+        string CanaleColore { get; set; } = "Faretto1";
 
         public MainPage()
         {
@@ -38,13 +40,16 @@ namespace conti.maurizio.RBMMFClient
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             pubnub = new Pubnub(
-                "pub-c-65914541-3bbd-4fa9-979d-ffe4b018be8f",
-                "sub-c-12fa7c6c-8534-11e5-83e3-02ee2ddab7fe"
+                "pub-c-531543bb-e12b-4db6-9c4b-f9df0fee3067",
+                "sub-c-021829ca-e9cb-11e5-8346-0619f8945a4f"
             );
 
-            Campioni = new ObservableCollection<Campione>();
+            Campioni = new ObservableCollection<Ambiente>();
             lvData.ItemsSource = Campioni;
-            pubnub.Subscribe<string>("Canale1", userCallBack, connectCallback, errorCallback);
+
+            pubnub.Subscribe<string>(CanaleAmbiente, userCallBack, connectCallback, errorCallback);
+            pubnub.EnableJsonEncodingForPublish = true;
+
         }
 
         private void connectCallback(string obj)
@@ -100,10 +105,14 @@ namespace conti.maurizio.RBMMFClient
             int.TryParse(edtRumore.Text, out rumore);
 
             EON e1 = new EON();
-            Campione c = new Campione { Luminosita = luminosita, Rumore = rumore, Temperatura = temperatura };
-            e1.eon = c;
+            Ambiente ambiente = new Ambiente { Luminosita = luminosita, Rumore = rumore, Temperatura = temperatura };
+            e1.eon = ambiente;
+            pubnub.Publish(CanaleAmbiente, e1, userPublish, userPubError);
+            Campioni.Add(ambiente);
+            lvData.ItemsSource = Campioni.Reverse().Take(10);
 
-            pubnub.Publish("Canale1", e1, userPublish, userPubError);
+            Colore colore = new Colore { Red = (int)luminosita, Green = (int)rumore, Blue = (int)temperatura };
+            pubnub.Publish(CanaleColore, colore, userPublish, userPubError);
         }
 
         private void userPublish(object obj)
@@ -145,15 +154,22 @@ namespace conti.maurizio.RBMMFClient
     */
 
 
-    public class Campione
+    public class Ambiente
     {
         public double Temperatura { get; set; }
         public double Luminosita { get; set; }
         public double Rumore { get; set; }
     }
 
+    public class Colore
+    {
+        public int Red { get; set; }
+        public int Green { get; set; }
+        public int Blue { get; set; }
+    }
+
     public class EON
     {
-        public Campione eon { get; set; }
+        public Ambiente eon { get; set; }
     }
 }

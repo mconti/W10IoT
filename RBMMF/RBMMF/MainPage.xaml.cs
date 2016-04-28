@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using PubNubMessaging.Core;
 using System.Diagnostics;
 using Windows.ApplicationModel.Core;
@@ -12,6 +13,7 @@ using Windows.Media.Capture;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 // Il modello di elemento per la pagina vuota è documentato all'indirizzo http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x410
 
@@ -22,18 +24,18 @@ namespace RBMMF
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private Pubnub pubnub = new Pubnub(
-            "pub-c-65914541-3bbd-4fa9-979d-ffe4b018be8f",
-            "sub-c-12fa7c6c-8534-11e5-83e3-02ee2ddab7fe"
-        );
+        Pubnub pubnub;
+        string CanaleAmbiente { get; set; } = "Ambiente1";
+        string CanaleColore { get; set; } = "Faretto1";
 
         IBuildGroveDevices GrovePi { get; }
-
-        DispatcherTimer timer { get; }
-
         int ContatoreErrori0 { get; set; }
         int ContatoreErrori1 { get; set; }
         int ContatoreErrori2 { get; set; }
+
+        ObservableCollection<Ambiente> Campioni;
+
+        DispatcherTimer timer { get; }
 
         public MainPage()
         {
@@ -48,6 +50,15 @@ namespace RBMMF
             ContatoreErrori0 = 0;
             ContatoreErrori1 = 0;
             ContatoreErrori2 = 0;
+
+            Campioni = new ObservableCollection<Ambiente>();
+
+            pubnub = new Pubnub( 
+                "pub-c-531543bb-e12b-4db6-9c4b-f9df0fee3067",
+                "sub-c-021829ca-e9cb-11e5-8346-0619f8945a4f"
+            );
+
+            //webView.Navigate(new Uri("http://maurizioconti.com/Ambiente1.html"));
 
         }
 
@@ -103,28 +114,40 @@ namespace RBMMF
             //    GrovePi.Relay(Pin.DigitalPin2).ChangeState(SensorStatus.Off);
             //}
 
-            try
-            {
-                Campione c = new Campione { Temperatura = analogVal0.Value, Luminosita = analogVal1.Value, Rumore = analogVal2.Value };
-                string s = "Test";
+            Ambiente ambiente = new Ambiente { Temperatura = analogVal0.Value, Luminosita = analogVal1.Value, Rumore = analogVal2.Value };
+            Colore colore = new Colore { Red = (int)analogVal0.Value, Green = (int)analogVal1.Value, Blue = (int)analogVal2.Value };
 
-                // Genera una eccezione!
-                s = JsonConvert.SerializeObject(c);
+            EON e1 = new EON();
+            e1.eon = ambiente;
+            Campioni.Add(e1.eon);
+            lvData.ItemsSource = Campioni.Reverse().Take(5);
 
-                pubnub.Publish<string>(
-                    "Canale1",
-                    s,
-                    false,
-                    DisplayReturnMessage,
-                    DisplayErrorMessage
-                );
-            }
-            catch (Exception Err)
+            if (cboxCloud.IsChecked.Value)
             {
+                try
+                {
+                    pubnub.Publish<string>(
+                        CanaleAmbiente,
+                        e1,
+                        false,                  // Deve salvarlo nella History di PubNub?
+                        DisplayReturnMessage,
+                        DisplayErrorMessage
+                    );
+
+                    pubnub.Publish<string>(
+                        CanaleColore,
+                        colore,
+                        false,                  // Deve salvarlo nella History di PubNub?
+                        DisplayReturnMessage,
+                        DisplayErrorMessage
+                    );
+                }
+                catch (Exception Err)
+                {
+                }
             }
 
             //string s = @"{""eon"": { ""Temperatura"": " + analogVal0.Value + @", ""Luminosita"": " + analogVal2.Value + @",""Rumore"": " + analogVal2.Value + "} }";
-
 
             // Rifacciamo un altro giro
             timer.Start();
@@ -143,6 +166,7 @@ namespace RBMMF
             //    DisplayErrorMessage
             //);
         }
+
         public void MyHistory(object result)
         {
             List<object> history = result as List<object>;
@@ -156,6 +180,7 @@ namespace RBMMF
                 }
             }
         }
+
         public void MyHistoryError(object result)
         {
             Debug.WriteLine("HistoryError called...");
@@ -183,6 +208,7 @@ namespace RBMMF
             //});
 
         }
+
         void DisplayErrorMessage(PubnubClientError result)
         {
             Debug.WriteLine("");
@@ -311,7 +337,7 @@ namespace RBMMF
             //}
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void VisualizzaHistory(object sender, RoutedEventArgs e)
         {
             // Arrivano solo quelli degli altri... non i propri!!!
             pubnub.DetailedHistory("Canale1", 10, MyHistory, MyHistoryError);
@@ -320,10 +346,26 @@ namespace RBMMF
     }
 
 
-    public class Campione
+    public class Ambiente
     {
         public double Temperatura { get; set; }
         public double Luminosita { get; set; }
         public double Rumore { get; set; }
     }
+
+    public class Colore
+    {
+        public int Red { get; set; }
+        public int Green { get; set; }
+        public int Blue { get; set; }
+    }
+
+    // Questa classe è un wrapper (avvolge un oggetto di classe Ambiente)
+    // Serve per essere compatibili con il sistema di visualizzazione EON (progetto di pubnub)
+    // https://www.pubnub.com/developers/eon/
+    public class EON
+    {
+        public Ambiente eon { get; set; }
+    }
+
 }

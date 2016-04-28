@@ -21,7 +21,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -30,9 +30,10 @@
             <TextBlock Grid.Column="0" Foreground="White" Text="FabLab Romagna Comfort page" FontSize="60" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Thin"/>
             <Image Grid.Column="1" Source="Assets/LogoFLRTrasparente.png" HorizontalAlignment="Right" Height="100"/>
         </Grid>
-
+        
         <StackPanel Grid.Row="1" Grid.Column="1">
 
+            <!--Temperatura-->
             <Grid Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -45,21 +46,24 @@
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
+                <TextBlock Grid.Row="1" Grid.Column="0" Foreground="BlanchedAlmond" FontFamily="Segoe MDL2 Assets" Text="&#59155;" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                 <!--https://materialdesignicons.com/-->
-                <Viewbox Grid.Row="1" Grid.Column="0" Width="48" Height="48">
+                <!--<Viewbox Grid.Row="1" Grid.Column="0" Width="48" Height="48">
                     <Canvas Width="24" Height="24">
                         <Path Data="M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M17,12L12,7V10H8V14H12V17L17,12Z" Fill="Black" />
                     </Canvas>
-                </Viewbox>
+                </Viewbox>-->
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Foreground="BlanchedAlmond" Grid.ColumnSpan="2" Text="Temperatura Ambiente" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Thin"/>
                 <!--<TextBlock Grid.Row="1" Grid.Column="0" Foreground="BlanchedAlmond" FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                
+
                 <ProgressBar Grid.Row="1" Grid.Column="1" Height="30" Name="analogVal0" Minimum="0" Maximum="1023" Foreground="Red"></ProgressBar>
                 <TextBlock Grid.Row="1" Grid.Column="1" Foreground="BlanchedAlmond" Name="lblValue0" Text="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                <TextBlock  Grid.Row="1" Grid.Column="2" Foreground="BlanchedAlmond" Name="lblErrorCounter0" Text="0" FontSize="40" VerticalAlignment="Center" Margin="20" />
+                <TextBlock  Grid.Row="1" Grid.Column="3" Foreground="BlanchedAlmond" Name="lblErrorCounter0" Text="0" FontSize="40" VerticalAlignment="Center" Margin="20" />
             </Grid>
+
+            <!--Luminosità-->
             <Grid Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -74,11 +78,13 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Foreground="BlanchedAlmond" Text="Luminosità Ambiente" FontFamily="Segoe UI" FontSize="30" FontWeight="Thin" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Foreground="BlanchedAlmond" FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
+                
                 <ProgressBar Grid.Row="1" Grid.Column="1" Height="30" Name="analogVal1" Minimum="0" Maximum="1023" Foreground="Green"></ProgressBar>
                 <TextBlock Grid.Row="1" Grid.Column="1" Foreground="BlanchedAlmond" Name="lblValue1" Text="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                
-                <TextBlock  Grid.Row="1" Grid.Column="2" Foreground="BlanchedAlmond" Name="lblErrorCounter1" Text="0" FontSize="40" VerticalAlignment="Center" Margin="20" />
+                <TextBlock  Grid.Row="1" Grid.Column="3" Foreground="BlanchedAlmond" Name="lblErrorCounter1" Text="0" FontSize="40" VerticalAlignment="Center" Margin="20" />
             </Grid>
+
+            <!--Rumore-->
             <Grid Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -90,18 +96,73 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Foreground="BlanchedAlmond" Text="Rumore Ambiente" FontFamily="Segoe UI" FontWeight="Thin" FontSize="30"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Foreground="BlanchedAlmond" FontFamily="Segoe MDL2 Assets" Text="&#xE1D6;" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                
-                <ProgressBar  Grid.Row="1" Grid.Column="1" Height="30" Name="analogVal2" Minimum="0" Maximum="1023" Foreground="Blue"></ProgressBar>
-                <TextBlock  Grid.Row="1" Grid.Column="1" Foreground="BlanchedAlmond" Name="lblValue2" Text="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                <TextBlock  Grid.Row="1" Grid.Column="2" Foreground="BlanchedAlmond" Name="lblErrorCounter2" Text="0" FontSize="40" VerticalAlignment="Center" Margin="20" />
+                <ProgressBar Grid.Row="1" Grid.Column="1" Height="30" Name="analogVal2" Minimum="0" Maximum="1023" Foreground="Blue"></ProgressBar>
+                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="BlanchedAlmond" Name="lblValue2" Text="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Foreground="BlanchedAlmond" Name="lblErrorCounter2" Text="0" FontSize="40" VerticalAlignment="Center" Margin="20" />
             </Grid>
-            <Button Height="100" Width="200" Content="Get History" Click="Button_Click_1"></Button>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" >
+                    <Button   HorizontalAlignment="Stretch" Name="btnHistory" Margin="10"  Content="Get History" Click="VisualizzaHistory"></Button>
+                    <CheckBox HorizontalAlignment="Stretch" Name="cboxCloud" Margin="10" RelativePanel.RightOf="btnHistory" RelativePanel.AlignVerticalCenterWith="btnHistory" IsChecked="True" >Salva sul cloud</CheckBox>
+
+                    <!--Log Valori-->
+                    <ListView HorizontalAlignment="Stretch" Name="lvData" VerticalAlignment="Stretch" FontSize="30">
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock HorizontalAlignment="Stretch" TextAlignment="Center" >Ultimi valori</TextBlock>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" TextAlignment="Center" Text="Temp" Style="{StaticResource BaseTextBlockStyle}" />
+                                        <TextBlock Grid.Column="1" TextAlignment="Center" Text="Lux" Style="{StaticResource BaseTextBlockStyle}" />
+                                        <TextBlock Grid.Column="2" TextAlignment="Center" Text="dB" Style="{StaticResource BaseTextBlockStyle}"/>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Temperatura}" Style="{StaticResource BaseTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Luminosita}" Style="{StaticResource BaseTextBlockStyle}" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Rumore}" Style="{StaticResource BaseTextBlockStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                
+                <!--Grafico-->
+                <WebView Margin="10" Grid.Column="1" DefaultBackgroundColor="#FF202020" Source="http://maurizioconti.com/Ambiente1.html"></WebView>
+            </Grid>
         </StackPanel>
-
-
+        
         <SplitView x:Name="MySplitView" 
                    DisplayMode="CompactOverlay"  
                    IsPaneOpen="False" CompactPaneLength="50" OpenPaneLength="350"
