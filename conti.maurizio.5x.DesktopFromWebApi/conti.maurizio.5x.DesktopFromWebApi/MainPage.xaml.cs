@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // Il modello di elemento per la pagina vuota è documentato all'indirizzo http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x410
@@ -39,35 +40,44 @@ namespace conti.maurizio._5x.DesktopFromWebApi
             {
                 string name = "test_image.jpg";
                 Uri uri = new Uri("http://www.ucl.ac.uk/news/news-articles/1213/muscle-fibres-heart.jpg");
+                StorageFile file;
 
-                StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(name);
-                if (file != null)
-                    await file.DeleteAsync();
+                // Elimina il vecchio se esiste.
+                try
+                {
+                    file = await ApplicationData.Current.LocalFolder.GetFileAsync(name);
+                    if (file != null)
+                        await file.DeleteAsync();
+                }
+                catch{}
 
+                // Scarica dal web il file.
                 file = await StorageFile.CreateStreamedFileFromUriAsync(name, uri, RandomAccessStreamReference.CreateFromUri(uri));
 
-                // file is readonly, copy to a new location to remove restrictions
+                // lo copia in locale
                 var file2 = await file.CopyAsync(ApplicationData.Current.LocalFolder);
 
-                // try set lockscreen/wallpaper
+                // lo visualizza
+                immagine.Source= new BitmapImage(new Uri(file2.Path));
+
+                // Ci sono due sistemi per settare il desktop differenti tra Phone e PC
+                bool risultato;
                 if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-                {// Phone
-                    var success = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file2);
-                }
+                    // Phone
+                    risultato = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(file2);
                 else
-                {// PC
-                    var success = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file2);
-                    if (success)
-                    {
-                        VisualizzaRisultato(success, "OK Fatto!");
-                    }
-                }
+                    // PC
+                    risultato = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(file2);
+
+                if (risultato)
+                    VisualizzaRisultato(true, "OK Fatto!");
+                else
+                    VisualizzaRisultato(false, "Desktop non cambiato!");
+
             }
-            catch(Exception Erore)
-            {
-                VisualizzaRisultato(false, Erore.Message);
-            }
+            catch (Exception Erore) { VisualizzaRisultato(false, Erore.Message); }
         }
+
 
         private static void VisualizzaRisultato( bool stato, string msg )
         {

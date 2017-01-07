@@ -5,9 +5,9 @@
     xmlns:local="using:conti.maurizio._5x.DesktopFromWebApi"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="loa_Loaded">
+    mc:Ignorable="d" Loaded="loa_Loaded" Width="197" Height="100">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Image x:Name="immagine"></Image>
     </Grid>
 </Page>
